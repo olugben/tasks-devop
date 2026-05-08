@@ -1,18 +1,17 @@
 # Stage 1: Build the application
 FROM maven:3.9.6-eclipse-temurin-21 AS build
 
+# Set working directory
 WORKDIR /app
 
-# Copy pom first (better layer caching)
-COPY pom.xml .
+# Copy project files (pom.xml and src folder) from task.api
+COPY task.api/pom.xml .
+COPY task.api/src ./src
 
 # Download dependencies
 RUN mvn dependency:go-offline
 
-# Copy source code
-COPY src ./src
-
-# Build jar (skip tests for speed in assessment context)
+# Build jar (skip tests for speed)
 RUN mvn clean package -DskipTests
 
 
