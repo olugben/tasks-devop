@@ -3,6 +3,12 @@ target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+# Terraform local files
+.terraform/
+*.tfstate
+*.tfstate.backup
+crash.log
+
 
 ### STS ###
 .apt_generated
