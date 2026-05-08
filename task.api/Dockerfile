@@ -1,12 +1,11 @@
 # Stage 1: Build the application
 FROM maven:3.9.6-eclipse-temurin-21 AS build
 
-# Set working directory
-WORKDIR /app
+# Set working directory to /app/task.api
+WORKDIR /app/task.api
 
-# Copy project files (pom.xml and src folder) from task.api
-COPY task.api/pom.xml .
-COPY task.api/src ./src
+# Copy the entire task.api folder (pom.xml + src)
+COPY task.api/ .
 
 # Download dependencies
 RUN mvn dependency:go-offline
@@ -24,7 +23,7 @@ WORKDIR /app
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 # Copy jar from build stage
-COPY --from=build /app/target/*.jar app.jar
+COPY --from=build /app/task.api/target/*.jar app.jar
 
 # Change ownership to non-root user
 RUN chown appuser:appgroup app.jar
