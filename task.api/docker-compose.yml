@@ -1,0 +1,73 @@
+
+
+services:
+
+  db:
+    image: postgres:16.2
+    restart: always
+
+    env_file:
+      - .env
+
+    ports:
+      - "5435:5432"
+
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+    networks:
+      - task-network
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: task-api
+    restart: always
+
+    depends_on:
+      db:
+        condition: service_healthy
+
+    ports:
+      - "8080:8080"
+
+    env_file:
+      - .env
+
+    networks:
+      - task-network
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: "512M"
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+
+volumes:
+  db_data:
+
+
+networks:
+  task-network:

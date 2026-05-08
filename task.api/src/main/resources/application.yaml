@@ -1,0 +1,32 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: task-api
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/damodb}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:8599}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+    show-sql: true
+
+    properties:
+      hibernate:
+        format_sql: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+  endpoint:
+    health:
+      show-details: always
