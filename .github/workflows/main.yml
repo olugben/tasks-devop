@@ -53,8 +53,8 @@ jobs:
     needs: test
     steps:
       - uses: actions/checkout@v4
-      - run: docker build -t $IMAGE_NAME .
-      - uses: aquasecurity/trivy-action@0.24.0
+      - run: docker build -t $IMAGE_NAME -f task.api/Dockerfile ./task.api
+      - uses: aquasecurity/trivy-action@0.35.0
         with:
           image-ref: $IMAGE_NAME
           severity: HIGH,CRITICAL
