@@ -164,7 +164,7 @@ SPRING_DATASOURCE_PASSWORD=taskpassword
 ```
 An example is provided in the repo be aware that the env is just for test in real env we dont store credentials in unencrypted and in .env and we DEFINITELY Not push it not even .env.example
 ### 3. Start the stack
-
+Make sure the docker  service is running before the following command
 ```bash
 docker compose up --build
 ```

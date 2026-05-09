@@ -7,7 +7,7 @@ services:
     restart: always
 
     env_file:
-      - .env
+      - .env.example
 
     ports:
       - "5435:5432"
@@ -41,7 +41,7 @@ services:
       - "8080:8080"
 
     env_file:
-      - .env
+      - .env.example
 
     networks:
       - task-network
