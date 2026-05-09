@@ -30,7 +30,7 @@ module "alb" {
 }
 
 variable "aws_region" {
-  default = ""
+  default = "eu-west-1"
 }
 module "ecs" {
   source              = "../modules/ecs"
