@@ -59,7 +59,7 @@ jobs:
       - run: docker build -t $IMAGE_NAME -f task.api/Dockerfile ./task.api
       - uses: aquasecurity/trivy-action@0.35.0
         with:
-          image-ref: $IMAGE_NAME
+          image-ref: ${{ env.IMAGE_NAME }}
           severity: HIGH,CRITICAL
           exit-code: 0
           ignore-unfixed: true
